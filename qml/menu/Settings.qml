@@ -1,0 +1,87 @@
+import QtQuick 2.12
+import QtQuick.Layouts 1.12
+
+GridLayout {
+    property int opacityAnimationToggle: -1
+    property string direction: "right"
+
+    // The reason I set `id` instead of using `index` is for the opacity animation
+
+    // Right Settings List
+    property var settingsListRight: [
+        {
+            Id: 4,
+            name: "USB",
+            icon: "\uf8e9",
+            active: false
+        },
+        {
+            Id: 3,
+            name: "Storage",
+            icon: "\uf0a0",
+            active: false
+        },
+        {
+            Id: 2,
+            name: "RAM",
+            icon: "\uf538",
+            active: false
+        },
+        {
+            Id: 1,
+            name: "CPU",
+            icon: "\uf2db",
+            active: false
+        },
+        {
+            Id: 0,
+            name: "< Settings",
+            icon: "\uf013",
+            active: true
+        }
+    ]
+
+    // Left Settings List
+    property var settingsListLeft: [
+        {
+            Id: 0,
+            name: "Settings >",
+            icon: "\uf013",
+            active: true
+        },
+        {
+            Id: 1,
+            name: "Network",
+            icon: "\uf6ff",
+            active: false
+        },
+        {
+            Id: 2,
+            name: "PCI",
+            icon: "\uf550",
+            active: false
+        },
+        {
+            Id: 3,
+            name: "Filesystem",
+            icon: "\uf07b",
+            active: false
+        },
+        {
+            Id: 4,
+            name: "All",
+            icon: "\uf57d",
+            active: false
+        }
+    ]
+
+    // Services Items
+    Repeater {
+        model: direction === "right" ? settingsListRight : settingsListLeft
+
+        MenuItem {
+            type: "settings"
+            opacityToggle: opacityAnimationToggle
+        }
+    }
+}
