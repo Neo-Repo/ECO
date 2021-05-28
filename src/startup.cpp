@@ -179,6 +179,18 @@ void Startup::newMachine()
     emit created();
 }
 
+virDomainPtr Startup::getDomain(virConnectPtr conn, QString username)
+{
+    QFile xmlConfig(QString("/home/%1/.config/Neo/ECO/WindowsECO.xml").arg(username));
+    xmlConfig.open(QIODevice::ReadOnly);
+    QTextStream in(&xmlConfig);
+    QByteArray array = in.readAll().toLocal8Bit();
+    char *buffer = array.data();
+    xmlConfig.close();
+
+    return virDomainCreateXML(conn, buffer, 0);
+}
+
 QStringList Startup::getResult() const
 {
     return result;

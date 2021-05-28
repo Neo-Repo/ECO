@@ -6,7 +6,9 @@
 #include <QTimer>
 #include <QProcess>
 #include <QThread>
+#include <QFile>
 #include <libvirt/libvirt.h>
+#include "startup.h"
 
 class Power : public QObject
 {
@@ -28,6 +30,8 @@ signals:
 private:
     QString username;
     QString status;
+    virConnectPtr conn;
+    virDomainPtr domain;
 };
 
 #endif // POWER_H

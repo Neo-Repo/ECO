@@ -12,20 +12,20 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
 
+    // get username
+    QString username = qgetenv("USER");
+    if (username.isEmpty())
+        username = qgetenv("USERNAME");
+
     // libvirt
     virEventRegisterDefaultImpl();
     virConnectPtr conn = virConnectOpen("qemu:///session");
-    virDomainPtr domain = virDomainLookupByName(conn, "WindowsECO");
+    virDomainPtr domain = Startup::getDomain(conn, username);
 
     QThread *eventsThread = QThread::create([]{
         while (true)
             virEventRunDefaultImpl();
     }); eventsThread->start();
-
-    // get username
-    QString username = qgetenv("USER");
-    if (username.isEmpty())
-        username = qgetenv("USERNAME");
 
     // CursorPosProvider
     CursorPosProvider mousePosProvider;

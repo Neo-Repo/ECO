@@ -10,6 +10,7 @@
 #include <QDebug>
 #include <QDir>
 #include <QThread>
+#include <libvirt/libvirt.h>
 
 class Startup : public QObject
 {
@@ -25,6 +26,7 @@ public:
     void install();
     void newMachine();
     QStringList getResult() const;
+    static virDomainPtr getDomain(virConnectPtr, QString);
 
 public slots:
     void setResult(const QStringList &newResult);

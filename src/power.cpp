@@ -1,7 +1,9 @@
 #include "power.h"
 
-Power::Power(QString *user, virConnectPtr conn, virDomainPtr domain, QObject *parent) : QObject(parent)
+Power::Power(QString *user, virConnectPtr _conn, virDomainPtr _domain, QObject *parent) : QObject(parent)
 {
+    conn = _conn;
+    domain = _domain;
     username = *user;
     newPowerStatus(conn, domain, 0, 0, this);
     virConnectDomainEventRegisterAny(conn, domain, VIR_DOMAIN_EVENT_ID_LIFECYCLE, VIR_DOMAIN_EVENT_CALLBACK(newPowerStatus), this, Q_NULLPTR);
@@ -31,10 +33,11 @@ void Power::newPowerStatus(virConnectPtr conn, virDomainPtr domain, int event, i
 
 void Power::action(QString type)
 {
-    if (type == "create")
-        QProcess::startDetached(QString("virsh create /home/%1/.config/Neo/ECO/WindowsECO.xml").arg(username));
-    else
-        QProcess::startDetached(QString("virsh %1 WindowsECO").arg(type));
+    // QString("virsh create /home/%1/.config/Neo/ECO/WindowsECO.xml").arg(username)
+    if (virDomainCreate(domain) == -1) {
+        domain = Startup::getDomain(conn, username);
+        virDomainCreate(domain);
+    }
 }
 
 QString Power::getStatus() const
