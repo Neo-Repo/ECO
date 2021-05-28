@@ -70,7 +70,7 @@ Window {
     Connections {
         target: powerBackend
         onStatusChanged: main.powerStatus = powerBackend.status
-        Component.onCompleted: powerBackend.startStatusTimer()
+        Component.onCompleted: main.powerStatus = powerBackend.status
     }
 
     Connections {

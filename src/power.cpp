@@ -1,8 +1,32 @@
 #include "power.h"
 
-Power::Power(QString *user, QObject *parent) : QObject(parent)
+Power::Power(QString *user, virConnectPtr conn, virDomainPtr domain, QObject *parent) : QObject(parent)
 {
     username = *user;
+    newPowerStatus(conn, domain, 0, 0, this);
+    virConnectDomainEventRegisterAny(conn, domain, VIR_DOMAIN_EVENT_ID_LIFECYCLE, VIR_DOMAIN_EVENT_CALLBACK(newPowerStatus), this, Q_NULLPTR);
+}
+
+void Power::newPowerStatus(virConnectPtr conn, virDomainPtr domain, int event, int detail, void *opaque)
+{
+    int state;
+    virDomainGetState(domain, &state, NULL, 0);
+    Power *obj = static_cast<Power *>(opaque);
+
+    switch (state) {
+        case 1:
+            obj->setStatus("running");
+            break;
+        case 3:
+        case 7:
+           obj->setStatus("paused");
+           break;
+        case 5:
+           obj->setStatus("off");
+           break;
+        default:
+            obj->setStatus("");
+    }
 }
 
 void Power::action(QString type)
@@ -11,34 +35,6 @@ void Power::action(QString type)
         QProcess::startDetached(QString("virsh create /home/%1/.config/Neo/ECO/WindowsECO.xml").arg(username));
     else
         QProcess::startDetached(QString("virsh %1 WindowsECO").arg(type));
-}
-
-void Power::startStatusTimer()
-{
-    QThread *statusThread = new QThread();
-    moveToThread(statusThread);
-
-    connect(statusThread, &QThread::started, [this]() {
-        QTimer *timer = new QTimer(this);
-        connect(timer, &QTimer::timeout, [this]() {
-            QProcess virshStatus;
-            virshStatus.start(QString("sh -c \"virsh dominfo WindowsECO | grep -w \"State:\" | awk '{ print $2}'\""));
-            virshStatus.waitForFinished();
-            QString stdout = virshStatus.readAllStandardOutput();
-
-            if (stdout.contains("shut") && status != "off")
-                setStatus("off");
-            else if (stdout.contains("running") && status != "running")
-                setStatus("running");
-            else if (stdout.contains("paused") && status != "paused")
-                setStatus("paused");
-            else if (stdout.isEmpty() && !status.isEmpty())
-                setStatus("");
-        });
-        timer->start(1000);
-    });
-
-    statusThread->start();
 }
 
 QString Power::getStatus() const

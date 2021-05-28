@@ -6,6 +6,7 @@
 #include <QTimer>
 #include <QProcess>
 #include <QThread>
+#include <libvirt/libvirt.h>
 
 class Power : public QObject
 {
@@ -13,9 +14,9 @@ class Power : public QObject
     Q_PROPERTY(QString status READ getStatus WRITE setStatus NOTIFY statusChanged)
 
 public:
-    explicit Power(QString *user, QObject *parent = nullptr);
+    explicit Power(QString *user, virConnectPtr conn, virDomainPtr domain, QObject *parent = nullptr);
+    static void newPowerStatus(virConnectPtr conn, virDomainPtr domain, int event, int detail, void *opaque);
     Q_INVOKABLE void action(QString type);
-    Q_INVOKABLE void startStatusTimer();
     QString getStatus() const;
 
 public slots:

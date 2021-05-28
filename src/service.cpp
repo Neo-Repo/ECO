@@ -6,10 +6,10 @@ Service::Service(QObject *parent) : QObject(parent)
 
     connect(server, &QTcpServer::newConnection, this, &Service::newConnection);
 
-    if(!server->listen(QHostAddress::Any, 40110))
-        qDebug() << "Service server could not start";
-    else
-        qDebug() << "Service server started!";
+//    if(!server->listen(QHostAddress::Any, 40110))
+//        qDebug() << "Service server could not start";
+//    else
+//        qDebug() << "Service server started!";
 
     // HeartBeat timer
     heartBeatTimer = new QTimer(this);

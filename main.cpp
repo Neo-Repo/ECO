@@ -12,6 +12,16 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
 
+    // libvirt
+    virEventRegisterDefaultImpl();
+    virConnectPtr conn = virConnectOpen("qemu:///session");
+    virDomainPtr domain = virDomainLookupByName(conn, "WindowsECO");
+
+    QThread *eventsThread = QThread::create([]{
+        while (true)
+            virEventRunDefaultImpl();
+    }); eventsThread->start();
+
     // get username
     QString username = qgetenv("USER");
     if (username.isEmpty())
@@ -30,7 +40,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("startupBackend", &startup);
 
     // Power
-    Power power(&username);
+    Power power(&username, conn, domain);
     engine.rootContext()->setContextProperty("powerBackend", &power);
 
     const QUrl url(QStringLiteral("qrc:/qml/Main.qml"));
