@@ -250,7 +250,7 @@ Rectangle {
 
                 FileDialog {
                     id: windowsISOFile
-                    nameFilters: "ISO files (*.iso)"
+                    nameFilters: "ISO files (*.iso *.ISO *.ISo *.IsO *.iSO *.isO *.iSo *.Iso)"
                     onAccepted: {
                         var filename = file.toString().substring(7)
                         windowsISOInput.text = filename
