@@ -20,7 +20,9 @@ int main(int argc, char *argv[])
     // libvirt
     virEventRegisterDefaultImpl();
     virConnectPtr conn = virConnectOpen("qemu:///session");
-    virDomainPtr domain = Startup::getDomain(conn, username);
+    virDomainPtr domain = virDomainLookupByName(conn, "WindowsECO");
+    if (domain == NULL)
+        domain = Startup::getDomain(conn, username);
 
     QThread *eventsThread = QThread::create([]{
         while (true)

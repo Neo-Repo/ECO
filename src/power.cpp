@@ -33,11 +33,18 @@ void Power::newPowerStatus(virConnectPtr conn, virDomainPtr domain, int event, i
 
 void Power::action(QString type)
 {
-    // QString("virsh create /home/%1/.config/Neo/ECO/WindowsECO.xml").arg(username)
-    if (virDomainCreate(domain) == -1) {
-        domain = Startup::getDomain(conn, username);
-        virDomainCreate(domain);
+    if (type == "start" or type == "create") {
+        if (virDomainCreate(domain) == -1)
+            domain = Startup::getDomain(conn, username);
     }
+    else if (type == "shutdown")
+        virDomainShutdown(domain);
+    else if (type == "reboot")
+        virDomainReboot(domain, 0);
+    else if (type == "suspend")
+        virDomainSuspend(domain);
+    else if (type == "resume")
+        virDomainResume(domain);
 }
 
 QString Power::getStatus() const
