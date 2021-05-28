@@ -101,12 +101,11 @@ Rectangle {
     property int settingsXLeft: 535
     property int settingsXRight: 5
     Behavior on x {
-        NumberAnimation { duration: 900 }
+        NumberAnimation { duration: 400 }
     }
     Behavior on opacity {
         NumberAnimation {
-            // I need to remove type settings when I load it fomr loader
-            duration: (type === "settings") && 400 * iD
+            duration: (type === "settings") && 100 * iD
         }
     }
     onXChanged: {
