@@ -1,9 +1,3 @@
-#include <QProcess>
-#include <QFile>
-#include <QFileInfo>
-#include <QDebug>
-#include <QDir>
-#include <QThread>
 #include "startup.h"
 
 Startup::Startup(QString *user, QObject *parent) : QObject(parent)

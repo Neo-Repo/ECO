@@ -4,6 +4,12 @@
 #include <QObject>
 #include <QJsonObject>
 #include <QJSValue>
+#include <QProcess>
+#include <QFile>
+#include <QFileInfo>
+#include <QDebug>
+#include <QDir>
+#include <QThread>
 
 class Startup : public QObject
 {

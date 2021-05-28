@@ -1,8 +1,4 @@
 #include "power.h"
-#include <QDebug>
-#include <QTimer>
-#include <QProcess>
-#include <QThread>
 
 Power::Power(QString *user, QObject *parent) : QObject(parent)
 {

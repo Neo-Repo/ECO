@@ -1,6 +1,4 @@
 #include "service.h"
-#include <QDebug>
-#include <QJsonDocument>
 
 Service::Service(QObject *parent) : QObject(parent)
 {

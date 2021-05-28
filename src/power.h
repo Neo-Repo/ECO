@@ -2,6 +2,10 @@
 #define POWER_H
 
 #include <QObject>
+#include <QDebug>
+#include <QTimer>
+#include <QProcess>
+#include <QThread>
 
 class Power : public QObject
 {

@@ -5,6 +5,8 @@
 #include <QTcpSocket>
 #include <QTcpServer>
 #include <QTimer>
+#include <QDebug>
+#include <QJsonDocument>
 
 class Service : public QObject
 {
