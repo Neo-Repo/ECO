@@ -18,7 +18,10 @@ Virt::Virt(QString *user, virConnectPtr *conn, virDomainPtr *domain)
 
 void Virt::handleError(void *userData, virErrorPtr error)
 {
-    QProcess::startDetached(QString("notify-send Error \"%1\"").arg(error->message));
+    if (error->code == 38)
+        QProcess::startDetached(QString("notify-send Error \"%1\"").arg(error->message));
+    else
+        qDebug() << error->message;
 }
 
 virDomainPtr Virt::getDomain(virConnectPtr conn, QString username)

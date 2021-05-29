@@ -1,6 +1,7 @@
 #ifndef VIRT_H
 #define VIRT_H
 #include <QFile>
+#include <QDebug>
 #include <QThread>
 #include <QProcess>
 #include <QTextStream>
