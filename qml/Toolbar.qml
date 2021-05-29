@@ -99,13 +99,13 @@ Rectangle {
         // On Mouse Enter
         ColorAnimation on color {
             to: "red"
-            duration: 400
+            duration: 300
             running: hideButtonMouse.containsMouse
         }
         // On Mouse Leave
         ColorAnimation on color {
             to: "#eeffffff"
-            duration: 300
+            duration: 200
             running: !hideButtonMouse.containsMouse
         }
     }

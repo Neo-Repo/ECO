@@ -82,17 +82,17 @@ Rectangle {
         Transition {
             to: "mouseEntered"
             PropertyAnimation {
-                target: menuItem; property: "border.width"; duration: 400 }
+                target: menuItem; property: "border.width"; duration: 300 }
             PropertyAnimation {
-                target: borderBottomMenu; properties: "color,height"; duration: 400 }
+                target: borderBottomMenu; properties: "color,height"; duration: 300 }
         },
         // On Mouse Leaved
         Transition {
             to: "mouseLeaved"
             PropertyAnimation {
-                target: menuItem; property: "border.width"; duration: 300 }
+                target: menuItem; property: "border.width"; duration: 200 }
             PropertyAnimation {
-                target: borderBottomMenu; properties: "color,height"; duration: 300 }
+                target: borderBottomMenu; properties: "color,height"; duration: 200 }
         }
     ]
 
