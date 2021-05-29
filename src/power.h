@@ -9,6 +9,7 @@
 #include <QFile>
 #include <libvirt/libvirt.h>
 #include "startup.h"
+#include "virt.h"
 
 class Power : public QObject
 {

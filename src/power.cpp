@@ -35,7 +35,7 @@ void Power::action(QString type)
 {
     if (type == "start" or type == "create") {
         if (virDomainCreate(domain) == -1)
-            domain = Startup::getDomain(conn, username);
+            domain = Virt::getDomain(conn, username);
     }
     else if (type == "shutdown")
         virDomainShutdown(domain);

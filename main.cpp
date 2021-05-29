@@ -2,9 +2,10 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include "src/CursorPosProvider.h"
-#include <src/service.h>
+#include "src/service.h"
 #include "src/startup.h"
 #include "src/power.h"
+#include "src/virt.h"
 
 int main(int argc, char *argv[])
 {
@@ -18,16 +19,9 @@ int main(int argc, char *argv[])
         username = qgetenv("USERNAME");
 
     // libvirt
-    virEventRegisterDefaultImpl();
-    virConnectPtr conn = virConnectOpen("qemu:///session");
-    virDomainPtr domain = virDomainLookupByName(conn, "WindowsECO");
-    if (domain == NULL)
-        domain = Startup::getDomain(conn, username);
-
-    QThread *eventsThread = QThread::create([]{
-        while (true)
-            virEventRunDefaultImpl();
-    }); eventsThread->start();
+    virConnectPtr conn = nullptr;
+    virDomainPtr domain = nullptr;
+    Virt(&username, &conn, &domain);
 
     // CursorPosProvider
     CursorPosProvider mousePosProvider;

@@ -26,7 +26,6 @@ public:
     void install();
     void newMachine();
     QStringList getResult() const;
-    static virDomainPtr getDomain(virConnectPtr, QString);
 
 public slots:
     void setResult(const QStringList &newResult);
