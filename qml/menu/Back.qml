@@ -14,7 +14,7 @@ Rectangle {
 
     Text {
         text: "←"
-        color: "white"
+        color: "#ccffffff"
         font.pixelSize: 35
         anchors.centerIn: parent
     }

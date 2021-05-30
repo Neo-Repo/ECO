@@ -28,14 +28,14 @@ GridLayout {
             name: "RAM",
             icon: "\uf538",
             type: "settings",
-            active: false
+            active: true
         },
         {
             Id: 1,
             name: "CPU",
             icon: "\uf2db",
             type: "settings",
-            active: false
+            active: true
         },
         {
             Id: 0,

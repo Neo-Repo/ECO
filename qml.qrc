@@ -14,6 +14,8 @@
         <file>qml/menu/Back.qml</file>
 
         <file>qml/menu/settings/USB.qml</file>
+        <file>qml/menu/settings/RAM.qml</file>
+        <file>qml/menu/settings/CPU.qml</file>
 
         <file>qml/general/Loading.qml</file>
         <file>qml/general/Error.qml</file>
