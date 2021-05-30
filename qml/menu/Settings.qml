@@ -14,7 +14,7 @@ GridLayout {
             name: "USB",
             icon: "\uf8e9",
             type: "settings",
-            active: true
+            active: false
         },
         {
             Id: 3,
@@ -57,7 +57,8 @@ GridLayout {
         },
         {
             Id: 1,
-            name: "Network",
+            //name: "Network",
+            name: "Network, N/A",
             icon: "\uf6ff",
             type: "settings",
             active: false
@@ -81,7 +82,7 @@ GridLayout {
             name: "All",
             icon: "\uf57d",
             type: "settings",
-            active: false
+            active: true
         }
     ]
 

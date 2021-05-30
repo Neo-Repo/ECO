@@ -7,6 +7,7 @@
 #include <QXmlStreamReader>
 #include <QDomNode>
 #include <QDomDocument>
+#include <QProcess>
 
 class Settings : public QObject
 {
@@ -17,6 +18,7 @@ public:
     Q_INVOKABLE void setRAM(QString);
     Q_INVOKABLE int getCPU();
     Q_INVOKABLE void setCPU(QString);
+    Q_INVOKABLE void openXML();
     QString getXML();
 
 private:

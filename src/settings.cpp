@@ -73,6 +73,11 @@ void Settings::setCPU(QString value)
     file.close();
 }
 
+void Settings::openXML()
+{
+    QProcess::startDetached("xdg-open /home/"+username+"/.config/Neo/ECO/WindowsECO.xml");
+}
+
 QString Settings::getXML() {
     QFile config("/home/"+username+"/.config/Neo/ECO/WindowsECO.xml");
     config.open(QIODevice::ReadOnly | QIODevice::Text);

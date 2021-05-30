@@ -136,6 +136,8 @@ Rectangle {
                 else if (direction === "right")
                     menuItem.x = settingsXRight
             }
+            else if (actived && type == "settings" && name == "All")
+                settingsBackend.openXML()
             else if (actived && type == "settings") {
                 main.mode = "menu/settings/"+name+".qml"
             }

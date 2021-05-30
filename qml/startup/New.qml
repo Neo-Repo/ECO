@@ -109,7 +109,7 @@ Rectangle {
                 text: "MiB"
                 anchors {
                     right: parent.right
-                    rightMargin: -35
+                    rightMargin: -41
                 }
                 font.pixelSize: 20
                 font.weight: "Light"
