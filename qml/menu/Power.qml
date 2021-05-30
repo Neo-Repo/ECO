@@ -9,21 +9,25 @@ GridLayout {
         {
             name: "Power On",
             icon: "\uf04b",
+            type: "power",
             active: main.powerStatus !== "running"
         },
         {
             name: "Shutdown",
             icon: "\uf011",
+            type: "power",
             active: main.powerStatus === "running"
         },
         {
             name: "Restart",
             icon: "\uf01e",
+            type: "power",
             active: main.powerStatus === "running"
         },
         {
             name: "Suspend",
             icon: "\uf0c7",
+            type: "power",
             active: main.powerStatus === "running"
         }
     ]

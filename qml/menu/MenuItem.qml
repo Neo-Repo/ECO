@@ -6,7 +6,7 @@ Rectangle {
     property string name: modelData.name
     property string icon: modelData.icon
     property bool actived: modelData.active
-    property string type: ""
+    property string type: !modelData.type ? "" : modelData.type
     property color hoverColor: "#8EF4FC"
 
     id: menuItem
@@ -136,7 +136,10 @@ Rectangle {
                 else if (direction === "right")
                     menuItem.x = settingsXRight
             }
-            else if(actived)
+            else if (actived && type == "settings") {
+                main.mode = "menu/settings/"+name+".qml"
+            }
+            else if(actived && type == "power")
                  action(name)
         }
     }

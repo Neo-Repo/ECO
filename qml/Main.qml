@@ -50,6 +50,13 @@ Window {
                 visible: main.mode === "menu"
             }
 
+            Loader {
+               width: parent.width
+               height: parent.height - 45
+               source: main.mode.search("settings") !== -1 ? main.mode : ""
+               visible: main.mode === main.mode.search("settings") !== -1
+            }
+
             Error {
                 id: error
                 width: parent.width

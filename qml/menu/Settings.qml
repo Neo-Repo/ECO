@@ -13,30 +13,35 @@ GridLayout {
             Id: 4,
             name: "USB",
             icon: "\uf8e9",
-            active: false
+            type: "settings",
+            active: true
         },
         {
             Id: 3,
             name: "Storage",
             icon: "\uf0a0",
+            type: "settings",
             active: false
         },
         {
             Id: 2,
             name: "RAM",
             icon: "\uf538",
+            type: "settings",
             active: false
         },
         {
             Id: 1,
             name: "CPU",
             icon: "\uf2db",
+            type: "settings",
             active: false
         },
         {
             Id: 0,
             name: "< Settings",
             icon: "\uf013",
+            type: "settings",
             active: true
         }
     ]
@@ -47,30 +52,35 @@ GridLayout {
             Id: 0,
             name: "Settings >",
             icon: "\uf013",
+            type: "settings",
             active: true
         },
         {
             Id: 1,
             name: "Network",
             icon: "\uf6ff",
+            type: "settings",
             active: false
         },
         {
             Id: 2,
             name: "PCI",
             icon: "\uf550",
+            type: "settings",
             active: false
         },
         {
             Id: 3,
             name: "Filesystem",
             icon: "\uf07b",
+            type: "settings",
             active: false
         },
         {
             Id: 4,
             name: "All",
             icon: "\uf57d",
+            type: "settings",
             active: false
         }
     ]
