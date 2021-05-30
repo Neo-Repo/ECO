@@ -2,6 +2,8 @@ import QtQuick 2.12
 import ".."
 
 Item {
+    property int maxRAM: startupBackend.spec()['RAM']
+
     Back {}
 
     Text {
@@ -14,7 +16,7 @@ Item {
         color: "white"
 
         TextInput {
-            text: "4096"
+            text: settingsBackend.getRAM()
             width: parent.width - 50
             height: parent.height
             anchors.right: parent.right
@@ -22,18 +24,16 @@ Item {
             font.pixelSize: 18
             horizontalAlignment: TextInput.AlignHCenter
             inputMethodHints: Qt.ImhDigitsOnly
-            validator: IntValidator { bottom: 1024; top: spec['RAM'] }
+            validator: IntValidator { bottom: 1024; top: maxRAM }
             color: "white"
             clip: true
 
-            onFocusChanged: {
-                if (text < 1024)
-                    text = 1024
-                else if (text > spec['RAM'])
-                    text = spec['RAM']
+            onTextChanged: {
+                if (text > maxRAM)
+                    text = maxRAM
 
-                inputData['RAM'] = parseInt(text)
-                inputChanged()
+                if (text >= 1024)
+                    settingsBackend.setRAM(text)
             }
 
             Rectangle {
@@ -44,7 +44,7 @@ Item {
         }
 
         Text {
-            text: "MB"
+            text: "MiB"
             anchors {
                 right: parent.right
                 rightMargin: -35

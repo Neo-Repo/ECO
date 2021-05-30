@@ -106,7 +106,7 @@ Rectangle {
             }
 
             Text {
-                text: "MB"
+                text: "MiB"
                 anchors {
                     right: parent.right
                     rightMargin: -35

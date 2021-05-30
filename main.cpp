@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include "src/CursorPosProvider.h"
+#include "src/settings.h"
 #include "src/service.h"
 #include "src/startup.h"
 #include "src/power.h"
@@ -34,6 +35,10 @@ int main(int argc, char *argv[])
     // Startup
     Startup startup(&username);
     engine.rootContext()->setContextProperty("startupBackend", &startup);
+
+    // Settings
+    Settings settings(&username);
+    engine.rootContext()->setContextProperty("settingsBackend", &settings);
 
     // Power
     Power power(&username, conn, domain);

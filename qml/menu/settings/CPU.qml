@@ -2,6 +2,8 @@ import QtQuick 2.12
 import ".."
 
 Item {
+    property int maxCPU: startupBackend.spec()['CPU']
+
     Back {}
 
     Text {
@@ -14,7 +16,7 @@ Item {
         color: "white"
 
         TextInput {
-            text: "2"
+            text: settingsBackend.getCPU()
             width: parent.width - 45
             height: parent.height
             anchors.right: parent.right
@@ -22,18 +24,20 @@ Item {
             font.pixelSize: 18
             horizontalAlignment: TextInput.AlignHCenter
             inputMethodHints: Qt.ImhDigitsOnly
-            validator: IntValidator { bottom: 1; top: spec['CPU'] }
+            validator: IntValidator { bottom: 1; top: maxCPU }
             color: "white"
             clip: true
 
-            onFocusChanged: {
-                if (text < 1)
+            onTextChanged: {
+                if (!text)
+                    text = ''
+                else if (text < 1)
                     text = 1
-                else if (text > spec['CPU'])
-                    text = spec['CPU']
+                else if (text > maxCPU)
+                    text = maxCPU
 
-                inputData['CPU'] = parseInt(text)
-                inputChanged()
+                if (text)
+                    settingsBackend.setCPU(parseInt(text))
             }
 
             Rectangle {
