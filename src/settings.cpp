@@ -1,8 +1,10 @@
 #include "settings.h"
 
-Settings::Settings(QString *user, QObject *parent) : QObject(parent)
+Settings::Settings(QString *user, virConnectPtr *_conn, virDomainPtr *_domain, QObject *parent) : QObject(parent)
 {
     username = *user;
+    conn = *_conn;
+    domain = *_domain;
 }
 
 int Settings::getRAM()
@@ -29,6 +31,7 @@ void Settings::setRAM(QString value)
     QDomElement nodeTag = root.firstChildElement("memory");
 
     QDomElement newNodeTag = doc.createElement(QString("memory"));
+    newNodeTag.setAttribute("unit", "MiB");
     QDomText newNodeText = doc.createTextNode(value);
     newNodeTag.appendChild(newNodeText);
 
@@ -37,6 +40,9 @@ void Settings::setRAM(QString value)
     file.seek(0);
     file.write(doc.toByteArray());
     file.close();
+
+    virDomainSetMaxMemory(domain, value.toInt() * 1024);
+    virDomainSetMemoryFlags(domain, value.toInt() * 1024, VIR_DOMAIN_MEM_CONFIG);
 }
 
 int Settings::getCPU()
@@ -71,6 +77,9 @@ void Settings::setCPU(QString value)
     file.seek(0);
     file.write(doc.toByteArray());
     file.close();
+
+    virDomainSetVcpusFlags(domain, value.toInt(), VIR_DOMAIN_AFFECT_CONFIG | VIR_DOMAIN_VCPU_MAXIMUM);
+    virDomainSetVcpusFlags(domain, value.toInt(), VIR_DOMAIN_AFFECT_CURRENT);
 }
 
 void Settings::openXML()

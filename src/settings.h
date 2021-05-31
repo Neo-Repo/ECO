@@ -8,12 +8,13 @@
 #include <QDomNode>
 #include <QDomDocument>
 #include <QProcess>
+#include <libvirt/libvirt.h>
 
 class Settings : public QObject
 {
     Q_OBJECT
 public:
-    explicit Settings(QString *user, QObject *parent = nullptr);
+    explicit Settings(QString *user, virConnectPtr *_conn, virDomainPtr *_domain, QObject *parent = nullptr);
     Q_INVOKABLE int getRAM();
     Q_INVOKABLE void setRAM(QString);
     Q_INVOKABLE int getCPU();
@@ -23,6 +24,9 @@ public:
 
 private:
     QString username;
+    virConnectPtr conn;
+    virDomainPtr domain;
+
 signals:
 
 };

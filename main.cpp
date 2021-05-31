@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("startupBackend", &startup);
 
     // Settings
-    Settings settings(&username);
+    Settings settings(&username, &conn, &domain);
     engine.rootContext()->setContextProperty("settingsBackend", &settings);
 
     // Power
