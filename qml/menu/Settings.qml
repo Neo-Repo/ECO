@@ -14,7 +14,7 @@ GridLayout {
             name: "USB",
             icon: "\uf8e9",
             type: "settings",
-            active: false
+            active: true
         },
         {
             Id: 3,
