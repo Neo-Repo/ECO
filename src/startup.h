@@ -8,6 +8,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QDebug>
+#include <QDomDocument>
 #include <QDir>
 #include <QThread>
 #include <libvirt/libvirt.h>
