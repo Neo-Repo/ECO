@@ -27,8 +27,11 @@ public:
     Q_INVOKABLE int getCPU();
     Q_INVOKABLE void setCPU(QString);
     Q_INVOKABLE void openXML();
+    Q_INVOKABLE void setDevice(QString vendor, QString product);
     QString getXML();
     QJsonArray getUsbDevices() const;
+    QString make_device(QString vendor, QString product);
+    bool check_connection(QString vendor, QString product);
 
     // udev
     void monitor_devices(struct udev* udev);

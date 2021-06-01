@@ -14,7 +14,7 @@ GridLayout {
             name: "USB",
             icon: "\uf8e9",
             type: "settings",
-            active: true
+            active: main.powerStatus != "off" ? true : false
         },
         {
             Id: 3,

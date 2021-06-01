@@ -33,7 +33,7 @@ Item {
         Rectangle {
             width: 450
             height: 40
-            color: "transparent"
+            color: modelData.connected ? "#aaffffff" :  "transparent"
             border.color: "#aaffffff"
             radius: 3
             clip: true
@@ -42,7 +42,7 @@ Item {
             Text {
                 id: usbName
                 text: modelData.name
-                color: "white"
+                color: modelData.connected ? "black" : "white"
                 font.pixelSize: 16
                 anchors {
                     verticalCenter: parent.verticalCenter
@@ -54,17 +54,7 @@ Item {
             MouseArea {
                 id: mouseUSB
                 anchors.fill: parent
-                onClicked: {
-                    if (true) {
-                        usbName.color = "black"
-                        parent.color = "#aaffffff"
-                        parent.border.color = "#aaffffff"
-                    } else {
-                        usbName.color = "white"
-                        parent.color = "transparent"
-                        parent.border.color = "#aaffffff"
-                    }
-                }
+                onClicked: settingsBackend.setDevice(modelData.vendor, modelData.product)
                 cursorShape: Qt.PointingHandCursor
             }
         }

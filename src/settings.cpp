@@ -95,6 +95,16 @@ void Settings::openXML()
     QProcess::startDetached("xdg-open /home/"+username+"/.config/Neo/ECO/WindowsECO.xml");
 }
 
+void Settings::setDevice(QString vendor, QString product)
+{
+    if (!check_connection(vendor, product)) {
+        virDomainAttachDevice(domain, make_device(vendor, product).toLocal8Bit());
+    }
+    else {
+        virDomainDetachDevice(domain, make_device(vendor, product).toLocal8Bit());
+    }
+}
+
 QString Settings::getXML() {
     QFile config("/home/"+username+"/.config/Neo/ECO/WindowsECO.xml");
     config.open(QIODevice::ReadOnly | QIODevice::Text);
@@ -108,6 +118,28 @@ QString Settings::getXML() {
 QJsonArray Settings::getUsbDevices() const
 {
     return usbDevices;
+}
+
+QString Settings::make_device(QString vendor, QString product)
+{
+    return QString("<hostdev mode='subsystem' type='usb' managed='yes'><source><vendor id='0x%1'/><product id='0x%2'/></source></hostdev>")
+           .arg(vendor).arg(product);
+}
+
+bool Settings::check_connection(QString vendor, QString product)
+{
+    QDomDocument doc("config");
+    doc.setContent(QString(virDomainGetXMLDesc(domain, 0)));
+    QDomElement root = doc.documentElement().firstChildElement("devices");
+    QDomElement device = root.firstChildElement("hostdev");
+
+    for (; !device.isNull(); device = device.nextSiblingElement("hostdev")) {
+        if (device.firstChildElement("source").firstChildElement("vendor").attribute("id").contains(vendor) &&
+            device.firstChildElement("source").firstChildElement("product").attribute("id").contains(product))
+            return true;
+    }
+
+    return false;
 }
 
 void Settings::monitor_devices(udev *udev)
@@ -190,7 +222,8 @@ void Settings::add_device(udev_device *dev)
                 {"name", name},
                 {"path", path},
                 {"vendor", vendor},
-                {"product", product}
+                {"product", product},
+                {"connected", check_connection(vendor, product)}
             });
             usbDevices.append(newUSB);
             emit usbDevicesChanged();
