@@ -11,6 +11,7 @@
         <file>qml/menu/Services.qml</file>
         <file>qml/menu/MenuItem.qml</file>
         <file>qml/menu/Settings.qml</file>
+        <file>qml/menu/Add.qml</file>
         <file>qml/menu/Back.qml</file>
 
         <file>qml/menu/settings/USB.qml</file>

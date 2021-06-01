@@ -105,6 +105,30 @@ void Settings::setDevice(QString vendor, QString product)
     }
 }
 
+void Settings::deleteDisk(QString path)
+{
+    QString xmlConfig;
+    QTextStream stream(&xmlConfig);
+    QJsonArray disks;
+    QDomDocument doc("config");
+    doc.setContent(QString(virDomainGetXMLDesc(domain, 0)));
+    QDomElement root = doc.documentElement().firstChildElement("devices");
+    QDomElement device = root.firstChildElement("disk");
+    for (; !device.isNull(); device = device.nextSiblingElement("disk")) {
+        if (device.firstChildElement("source").attribute("file") == path) {
+            device.save(stream, 0);
+            virDomainDetachDeviceFlags(domain, xmlConfig.toLocal8Bit(), VIR_DOMAIN_AFFECT_CONFIG);
+            break;
+        }
+    }
+}
+
+void Settings::addDisk(QString path)
+{
+    QString config = QString("<disk><source file='%1'/><target bus='ide'/></disk>").arg(path);
+    virDomainDetachDeviceFlags(domain, config.toLocal8Bit(), VIR_DOMAIN_AFFECT_CONFIG);
+}
+
 QString Settings::getXML() {
     QFile config("/home/"+username+"/.config/Neo/ECO/WindowsECO.xml");
     config.open(QIODevice::ReadOnly | QIODevice::Text);
@@ -118,6 +142,20 @@ QString Settings::getXML() {
 QJsonArray Settings::getUsbDevices() const
 {
     return usbDevices;
+}
+
+QJsonArray Settings::getDiskDevices() const
+{
+    QJsonArray disks;
+    QDomDocument doc("config");
+    doc.setContent(QString(virDomainGetXMLDesc(domain, 0)));
+    QDomElement root = doc.documentElement().firstChildElement("devices");
+    QDomElement device = root.firstChildElement("disk");
+
+    for (; !device.isNull(); device = device.nextSiblingElement("disk")) {
+        disks.append(device.firstChildElement("source").attribute("file"));
+    }
+    return disks;
 }
 
 QString Settings::make_device(QString vendor, QString product)
@@ -244,4 +282,10 @@ void Settings::setUsbDevices(const QJsonArray &newUsbDevices)
 {
     usbDevices = newUsbDevices;
     emit usbDevicesChanged();
+}
+
+void Settings::setDiskDevices(const QJsonArray &newDiskDevices)
+{
+    diskDevices = newDiskDevices;
+    emit diskDevicesChanged();
 }
