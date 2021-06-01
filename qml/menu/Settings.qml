@@ -18,10 +18,10 @@ GridLayout {
         },
         {
             Id: 3,
-            name: "Storage",
+            name: "Disk",
             icon: "\uf0a0",
             type: "settings",
-            active: false
+            active: true
         },
         {
             Id: 2,

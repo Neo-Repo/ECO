@@ -11,7 +11,7 @@ Item {
             fill: parent
             top: parent.top
             bottom: parent.bottom
-            topMargin: 20
+            topMargin: 50
             bottomMargin: 20
         }
         clip: true
@@ -21,7 +21,7 @@ Item {
             spacing: 12
 
             Repeater {
-                model: 20
+                model: settingsBackend.usbDevices
                 delegate: device
             }
         }
@@ -41,7 +41,7 @@ Item {
 
             Text {
                 id: usbName
-                text: "Focusrite-Novation Launchkey MK2 49"
+                text: modelData.name
                 color: "white"
                 font.pixelSize: 16
                 anchors {
