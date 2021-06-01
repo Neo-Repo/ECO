@@ -7,7 +7,7 @@ Item {
     Back {}
 
     ScrollView {
-        anchors{
+        anchors {
             fill: parent
             top: parent.top
             bottom: parent.bottom
@@ -41,6 +41,7 @@ Item {
 
             Text {
                 id: usbName
+                width: 430
                 text: modelData.name
                 color: modelData.connected ? "black" : "white"
                 font.pixelSize: 16
@@ -49,6 +50,7 @@ Item {
                     left: parent.left
                     leftMargin: 10
                }
+               clip: true
             }
 
             MouseArea {
