@@ -12,9 +12,11 @@ GridLayout {
         {
             Id: 4,
             name: "USB",
+            name: "USBm N/A",
             icon: "\uf8e9",
             type: "settings",
-            active: main.powerStatus != "off" ? true : false
+            //active: main.powerStatus != "off" ? true : false
+            active: false
         },
         {
             Id: 3,
@@ -66,14 +68,16 @@ GridLayout {
         },
         {
             Id: 2,
-            name: "PCI",
+            //name: "PCI",
+            name: "PCI, N/A",
             icon: "\uf550",
             type: "settings",
             active: false
         },
         {
             Id: 3,
-            name: "Filesystem",
+            //name: "Filesystem",
+            name: "Filesystem, N/A",
             icon: "\uf07b",
             type: "settings",
             active: false
