@@ -127,18 +127,16 @@ void Server::read()
 
             // code 2: open
             case 2:
-                QString c;
+                QString sendData;
                 if(data["t"] == "p") {
-                    c = "{\"op\":2, \"t\": \"p\", \"path\": \""+data["path"].toString()+"\"}";
+                    sendData = "{\"op\":2, \"t\": \"p\", \"path\": \""+data["path"].toString()+"\"}";
                 }
                 else if(data["t"] == "s") {
-                    c = "{\"op\":2, \"t\": \"s\", \"pnf\": \""+data["pfn"].toString()+"\", \"appId\": \""+data["appId"].toString()+"\"}";
-                    qDebug() << c;
+                    sendData = "{\"op\":2, \"t\": \"s\", \"pnf\": \""+data["pfn"].toString()+"\", \"appId\": \""+data["appId"].toString()+"\"}";
                 }
                 for(auto &client : mClients) {
-                    client->write(c.toUtf8());
-                }
-                qDebug() << c;
+                    client->write(sendData.toUtf8());
+                } ;qDebug() << data;
                 break;
         }
     }
