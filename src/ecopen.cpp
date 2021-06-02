@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
     });
 
     socket->connectToHost("127.0.0.1", 40110);
-    socket->waitForConnected(1);
+    socket->waitForConnected();
 
-    return a.exec();
+    return 0;
 }
