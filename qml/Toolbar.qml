@@ -63,14 +63,14 @@ Rectangle {
             left: parent.left
             leftMargin: 11
         }
-        color: main.serviceConnected ? "#aa00ff00"
+        color: main.serverConnected ? "#aa00ff00"
                : main.powerStatus === "running" ? "#cc0000"
                : main.powerStatus === "paused" ? "#cccc00" : "grey"
         radius: width / .5
 
         // Status Detail
         Text {
-            text: main.serviceConnected ? "Connected"
+            text: main.serverConnected ? "Connected"
                   : main.powerStatus === "running" ? "Running (ECO Service not Connected)"
                   : main.powerStatus === "paused" ? "Paused" : "Powered Off"
             anchors {

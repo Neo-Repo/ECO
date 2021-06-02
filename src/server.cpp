@@ -1,15 +1,15 @@
-#include "service.h"
+#include "server.h"
 
-Service::Service(QObject *parent) : QObject(parent)
+Server::Server(QObject *parent) : QObject(parent)
 {
     server = new QTcpServer(this);
 
-    connect(server, &QTcpServer::newConnection, this, &Service::newConnection);
+    connect(server, &QTcpServer::newConnection, this, &Server::newConnection);
 
 //    if(!server->listen(QHostAddress::Any, 40110))
-//        qDebug() << "Service server could not start";
+//        qDebug() << "Server could not start";
 //    else
-//        qDebug() << "Service server started!";
+//        qDebug() << "Server started!";
 
     // HeartBeat timer
     heartBeatTimer = new QTimer(this);
@@ -18,30 +18,30 @@ Service::Service(QObject *parent) : QObject(parent)
     });
 }
 
-bool Service::getConnected() const
+bool Server::getConnected() const
 {
     return connected;
 }
 
-void Service::setConnected(const bool &connectionStatus)
+void Server::setConnected(const bool &connectionStatus)
 {
     connected = connectionStatus;
     emit connectedChanged();
 }
 
-void Service::newConnection()
+void Server::newConnection()
 {
     socket = server->nextPendingConnection();
     qDebug() << "New Connection " + socket->peerAddress().toString();
     socket->write("{\"op\":0, \"interval\":1000}");
-    connect(socket, &QTcpSocket::readyRead, this, &Service::read);
+    connect(socket, &QTcpSocket::readyRead, this, &Server::read);
     setConnected(true);
 
     // we start the timer and expect the client set interval again to avoid timeout
     heartBeatTimer->start(2000);
 }
 
-void Service::read()
+void Server::read()
 {
     QJsonDocument data = QJsonDocument::fromJson(socket->readAll());
 

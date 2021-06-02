@@ -1,5 +1,5 @@
-#ifndef SERVICE_H
-#define SERVICE_H
+#ifndef SERVER_H
+#define SERVER_H
 
 #include <QObject>
 #include <QTcpSocket>
@@ -8,13 +8,13 @@
 #include <QDebug>
 #include <QJsonDocument>
 
-class Service : public QObject
+class Server : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(bool connected READ getConnected WRITE setConnected NOTIFY connectedChanged)
 
 public:
-    explicit Service(QObject *parent = nullptr);
+    explicit Server(QObject *parent = nullptr);
     bool getConnected() const;
 
 public slots:
@@ -32,4 +32,4 @@ private:
     QTimer *heartBeatTimer;
 };
 
-#endif // SERVICE_H
+#endif // SERVER_H

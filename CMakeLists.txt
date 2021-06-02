@@ -17,7 +17,7 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick Xml REQUIRED)
 add_executable(ECO
     main.cpp
     src/virt.cpp
-    src/service.cpp
+    src/server.cpp
     src/startup.cpp
     src/settings.cpp
     src/power.cpp

@@ -19,7 +19,7 @@ Window {
     maximumWidth: width
 
     Rectangle {
-        property bool serviceConnected: false
+        property bool serverConnected: false
         property string powerStatus: ""
         property string mode: "startup"
 
@@ -81,8 +81,8 @@ Window {
     }
 
     Connections {
-        target: serviceBackend
-        onConnectedChanged: main.serviceConnected = serviceBackend.connected
+        target: serverBackend
+        onConnectedChanged: main.serverConnected = serverBackend.connected
     }
 
     FontAwesome {}

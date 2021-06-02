@@ -3,7 +3,7 @@
 #include <QQmlContext>
 #include "src/CursorPosProvider.h"
 #include "src/settings.h"
-#include "src/service.h"
+#include "src/server.h"
 #include "src/startup.h"
 #include "src/power.h"
 #include "src/virt.h"
@@ -28,9 +28,9 @@ int main(int argc, char *argv[])
     CursorPosProvider mousePosProvider;
     engine.rootContext()->setContextProperty("mousePosition", &mousePosProvider);
 
-    // Service
-    Service service;
-    engine.rootContext()->setContextProperty("serviceBackend", &service);
+    // Server
+    Server server;
+    engine.rootContext()->setContextProperty("serverBackend", &server);
 
     // Startup
     Startup startup(&username);

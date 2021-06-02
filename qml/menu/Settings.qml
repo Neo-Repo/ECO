@@ -91,7 +91,7 @@ GridLayout {
         }
     ]
 
-    // Services Items
+    // Settings Items
     Repeater {
         model: direction === "right" ? settingsListRight : settingsListLeft
 
