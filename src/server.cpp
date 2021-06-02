@@ -93,7 +93,7 @@ void Server::setConnected(const bool &connectionStatus)
 void Server::newConnection()
 {
     socket = server->nextPendingConnection();
-    qDebug() << "New Connection " + socket->peerAddress().toString();
+    //qDebug() << "New Connection " + socket->peerAddress().toString();
     socket->write("{\"op\":0, \"interval\":1000}");
     connect(socket, &QTcpSocket::readyRead, this, &Server::read);
     setConnected(true);
@@ -136,7 +136,7 @@ void Server::read()
                 }
                 for(auto &client : mClients) {
                     client->write(sendData.toUtf8());
-                } ;qDebug() << data;
+                }
                 break;
         }
     }

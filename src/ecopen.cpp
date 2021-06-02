@@ -12,14 +12,15 @@ int main(int argc, char *argv[])
     QTcpSocket *socket = new QTcpSocket();
 
     QObject::connect(socket, &QTcpSocket::connected, [&]() {
-        QString sent;
+        QString sendData;
         if (QString(argv[1]) == "p") {
-            sent = "{\"op\":2, \"t\":\"p\", \"path\":\""+QString(argv[2]).replace("\\", "\\\\\\\\")+"\"}";
-            socket->write(sent.toUtf8());
+            QString path = QString(argv[2]).replace("\\", "\\\\");
+            sendData = "{\"op\":2, \"t\":\"p\", \"path\":\""+path+"\"}";
+            socket->write(sendData.toUtf8());
         }
         else if (QString(argv[1]) == "s") {
-            sent = "{\"op\":2, \"t\":\"s\", \"appId\":\""+QString(argv[2])+"\", \"pfn\":\""+QString(argv[3])+"\"}";
-            socket->write(sent.toUtf8());
+            sendData = "{\"op\":2, \"t\":\"s\", \"appId\":\""+QString(argv[2])+"\", \"pfn\":\""+QString(argv[3])+"\"}";
+            socket->write(sendData.toUtf8());
         }
         socket->waitForBytesWritten();
     });
