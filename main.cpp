@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("mousePosition", &mousePosProvider);
 
     // Server
-    Server server;
+    Server server(&username);
     engine.rootContext()->setContextProperty("serverBackend", &server);
 
     // Startup

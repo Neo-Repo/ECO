@@ -7,6 +7,11 @@
 #include <QTimer>
 #include <QDebug>
 #include <QJsonDocument>
+#include <QJsonArray>
+#include <QJsonObject>
+#include <QJsonValue>
+#include <QFile>
+#include <QImage>
 
 class Server : public QObject
 {
@@ -14,8 +19,10 @@ class Server : public QObject
     Q_PROPERTY(bool connected READ getConnected WRITE setConnected NOTIFY connectedChanged)
 
 public:
-    explicit Server(QObject *parent = nullptr);
+    explicit Server(QString *user, QObject *parent = nullptr);
     bool getConnected() const;
+    void setPrograms(QJsonDocument *doc);
+    void makeDesktop(QJsonObject *obj, QString type);
 
 public slots:
     void setConnected(const bool &connectionStatus);
@@ -30,6 +37,12 @@ private:
     QTcpServer *server;
     QTcpSocket *socket;
     QTimer *heartBeatTimer;
+    QVector<QTcpSocket *> mClients;
+    QByteArray rawData;
+    QString *username;
+
+    // beta
+    bool req = false;
 };
 
 #endif // SERVER_H
