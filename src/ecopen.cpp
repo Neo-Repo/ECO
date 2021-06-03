@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
     QObject::connect(socket, &QTcpSocket::connected, [&]() {
         QString sendData;
         if (QString(argv[1]) == "p") {
-            QString path = QString(argv[2]).replace("\\", "\\\\\\\\");
+            QString path = QString(argv[2]).replace("\\", "\\\\");
             sendData = "{\"op\":2, \"t\":\"p\", \"path\":\""+path+"\"}";
             socket->write(sendData.toUtf8());
         }
