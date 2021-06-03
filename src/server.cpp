@@ -109,7 +109,6 @@ void Server::read()
     QJsonDocument data = QJsonDocument::fromJson(rawData, &parseError);
 
     if (parseError.error == QJsonParseError::NoError) {
-        rawData = "";
         switch (data["op"].toInt()) {
             // code 0: heartbeat interval
             case 0:
@@ -127,17 +126,11 @@ void Server::read()
 
             // code 2: open
             case 2:
-                QString sendData;
-                if(data["t"] == "p") {
-                    sendData = "{\"op\":2, \"t\": \"p\", \"path\": \""+data["path"].toString()+"\"}";
-                }
-                else if(data["t"] == "s") {
-                    sendData = "{\"op\":2, \"t\": \"s\", \"pnf\": \""+data["pfn"].toString()+"\", \"appId\": \""+data["appId"].toString()+"\"}";
-                }
                 for(auto &client : mClients) {
-                    client->write(sendData.toUtf8());
+                    client->write(rawData);
                 }
                 break;
         }
+        rawData = "";
     }
 }
