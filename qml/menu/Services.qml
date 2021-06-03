@@ -20,9 +20,11 @@ GridLayout {
             active: true
         },
         {
-            name: "Notifications",
+            //name: "Notifications",
+            name: "Notifications, N/A",
             icon: "\uf0f3",
-            active: true
+            //active: true
+            active: false
         }
     ]
 
