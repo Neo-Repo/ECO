@@ -92,6 +92,7 @@ void Server::setConnected(const bool &connectionStatus)
 
 void Server::newConnection()
 {
+    req = false;
     socket = server->nextPendingConnection();
     //qDebug() << "New Connection " + socket->peerAddress().toString();
     socket->write("{\"op\":0, \"interval\":1000}");
