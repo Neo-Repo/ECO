@@ -95,7 +95,11 @@ void Server::newConnection()
 
 void Server::read()
 {
-    rawData += socket->readAll();
+    //rawData += socket->readAll();
+    for(auto &client : mClients) {
+        rawData += client->readAll();
+    }
+
     QJsonParseError parseError;
     QJsonDocument data = QJsonDocument::fromJson(rawData, &parseError);
 
