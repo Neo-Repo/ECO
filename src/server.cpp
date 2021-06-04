@@ -34,22 +34,12 @@ void Server::setPrograms(QJsonDocument *doc)
             QJsonObject::iterator i;
             for (i = object.begin(); i != object.end(); ++i) {
                 if (i.key() == "programs") {
-                    QJsonArray array = i->toArray();
-                    QJsonArray::iterator j;
-
-                    for (j = array.begin(); j != array.end(); ++j) {
-                        QJsonObject object = j->toObject();
-                        makeDesktop(&object, "program");
-                    }
+                    QJsonObject object = i->toObject();
+                    makeDesktop(&object, "program");
                 }
                 else if (i.key() == "storeApps") {
-                    QJsonArray array = i->toArray();
-                    QJsonArray::iterator j;
-
-                    for (j = array.begin(); j != array.end(); ++j) {
-                        QJsonObject object = j->toObject();
-                        makeDesktop(&object, "storeApp");
-                    }
+                    QJsonObject object = i->toObject();
+                    makeDesktop(&object, "storeApp");
                 }
             }
         }
@@ -105,7 +95,7 @@ void Server::newConnection()
 
 void Server::read()
 {
-    rawData += socket->readAll();
+    rawData = socket->readAll();
     QJsonParseError parseError;
     QJsonDocument data = QJsonDocument::fromJson(rawData, &parseError);
 
@@ -132,6 +122,5 @@ void Server::read()
                 }
                 break;
         }
-        rawData = "";
     }
 }
