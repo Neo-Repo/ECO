@@ -22,6 +22,7 @@ Window {
         property bool serverConnected: false
         property string powerStatus: ""
         property string mode: "startup"
+        property string path: ""
 
         id: main
         anchors.fill: parent
@@ -53,8 +54,8 @@ Window {
             Loader {
                width: parent.width
                height: parent.height - 45
-               source: main.mode.search("settings") !== -1 ? main.mode : ""
-               visible: main.mode === main.mode.search("settings") !== -1
+               source: main.mode == "path" ? main.path : ""
+               visible: main.mode === "path"
             }
 
             Error {

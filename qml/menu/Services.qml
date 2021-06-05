@@ -7,22 +7,26 @@ GridLayout {
         {
             name: "Main Display",
             icon: "\uf108",
+            type: "services",
             active: true
         },
         {
             name: "Windows List",
             icon: "\uf2fa",
+            type: "services",
             active: true
         },
         {
             name: "Programs",
             icon: "\uf37e",
+            type: "services",
             active: true
         },
         {
             //name: "Notifications",
             name: "Notifications, N/A",
             icon: "\uf0f3",
+            type: "services",
             //active: true
             active: false
         }

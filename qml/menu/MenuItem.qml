@@ -139,7 +139,12 @@ Rectangle {
             else if (actived && type == "settings" && name == "All")
                 settingsBackend.openXML()
             else if (actived && type == "settings") {
-                main.mode = "menu/settings/"+name+".qml"
+                main.mode = "path"
+                main.path = "menu/settings/"+name+".qml"
+            }
+            else if (actived && type == "services") {
+                main.mode = "path"
+                main.path = "menu/services/"+name+".qml"
             }
             else if(actived && type == "power")
                  action(name)
