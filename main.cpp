@@ -18,6 +18,7 @@ int main(int argc, char *argv[])
     QString username = qgetenv("USER");
     if (username.isEmpty())
         username = qgetenv("USERNAME");
+    engine.rootContext()->setContextProperty("username", username);
 
     // libvirt
     virConnectPtr conn = nullptr;

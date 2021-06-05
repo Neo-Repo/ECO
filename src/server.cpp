@@ -19,6 +19,38 @@ Server::Server(QString *user, QObject *parent) : QObject(parent)
     });
 }
 
+QJsonArray Server::programs()
+{
+    QJsonArray list;
+    QDirIterator applications("/home/"+*username+"/.local/share/Neo/ECO/applications");
+    while (applications.hasNext()) {
+        QFile file(applications.next());
+
+        if (file.open(QIODevice::ReadOnly) && file.fileName().split(".").last() == "desktop") {
+            QString name, exec;
+            while (!file.atEnd()) {
+                QString line = file.readLine();
+                if (line.startsWith("Name"))
+                    name = line.split("=").last().trimmed();
+                else if (line.startsWith("Exec"))
+                    exec = line.split("=").last().trimmed();
+            }
+
+            list.append(QJsonObject({
+                {"name", name},
+                {"exec", exec}
+            }));
+        }
+    }
+
+    return list;
+}
+
+void Server::execute(QString command)
+{
+    QProcess::startDetached(command);
+}
+
 bool Server::getConnected() const
 {
     return connected;

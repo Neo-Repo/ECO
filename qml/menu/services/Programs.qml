@@ -24,7 +24,7 @@ Item {
             columnSpacing: 12
 
             Repeater {
-                model: 50
+                model: serverBackend.programs()
                 delegate: program
             }
         }
@@ -41,17 +41,18 @@ Item {
             clip: true
 
             Image {
-                width: parent.width - 5
-                height: parent.height - 15
+                width: parent.width - 40
+                height: parent.height - 40
                 anchors.top: parent.top
-                anchors.topMargin: 0
+                anchors.topMargin: 10
                 anchors.horizontalCenter: parent.horizontalCenter
-                source: "file:///home/silent/.local/share/Neo/ECO/icons/Photos.png"
+                source: "file:///home/%1/.local/share/Neo/ECO/icons/%2.png".arg(username).arg(modelData["name"])
+                mipmap: true
             }
 
             Text {
                 width: 100
-                text: "text "+modelData
+                text: modelData["name"]
                 color: "white"
                 anchors.bottom: parent.bottom
                 anchors.left: parent.left
@@ -64,6 +65,7 @@ Item {
                 id: programMouse
                 anchors.fill: parent
                 hoverEnabled: true
+                onClicked: serverBackend.execute(modelData["exec"])
             }
         }
     }

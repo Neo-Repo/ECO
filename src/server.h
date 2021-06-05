@@ -10,6 +10,8 @@
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QJsonValue>
+#include <QDirIterator>
+#include <QProcess>
 #include <QFile>
 #include <QImage>
 
@@ -20,6 +22,8 @@ class Server : public QObject
 
 public:
     explicit Server(QString *user, QObject *parent = nullptr);
+    Q_INVOKABLE QJsonArray programs();
+    Q_INVOKABLE void execute(QString);
     bool getConnected() const;
     void setPrograms(QJsonDocument *doc);
     void makeDesktop(QJsonObject *obj, QString type);
