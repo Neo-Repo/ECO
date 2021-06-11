@@ -37,6 +37,11 @@ Spice *Spice::getSpice()
     return instance;
 }
 
+void Spice::toggleDisplay(int id)
+{
+    qDebug() << id;
+}
+
 void Spice::connectToGuest(const QString &path)
 {
     session = spice_session_new();

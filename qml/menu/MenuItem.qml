@@ -143,11 +143,15 @@ Rectangle {
                 main.path = "menu/settings/"+name+".qml"
             }
             else if (actived && type == "services") {
-                main.mode = "path"
-                main.path = "menu/services/"+name+".qml"
+                if (name == "Main Display")
+                    spiceBackend.toggleDisplay(1)
+                else {
+                    main.mode = "path"
+                    main.path = "menu/services/"+name+".qml"
+                }
             }
             else if(actived && type == "power")
-                 action(name)
+                action(name)
         }
     }
 }
