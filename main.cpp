@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("serverBackend", &server);
 
     // Spice
-    Spice spice;
+    Spice spice(QString("/home/%1/.config/Neo/ECO/display.sock").arg(username));
     engine.rootContext()->setContextProperty("spiceBackend", &spice);
 
     // Startup

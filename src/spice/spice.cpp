@@ -23,17 +23,18 @@ static void channel_new(SpiceSession *session, SpiceChannel *channel)
 
 Spice *Spice::instance = NULL;
 
-Spice::Spice()
+Spice::Spice(const QString path)
 {
     session = NULL;
     instance = this;
+    connectToGuest(path);
 }
 
 Spice *Spice::getSpice()
 {
     if (instance)
         return instance;
-    instance = new Spice();
+    instance = new Spice("");
     return instance;
 }
 
