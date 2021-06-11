@@ -15,7 +15,6 @@ static void channel_new(SpiceSession *session, SpiceChannel *channel)
             foreach (SpiceView *view, Spice::getSpice()->displays) {
                 Spice::getSpice()->displays[view->id]->display = spice_display_new(session, view->id);
                 Spice::getSpice()->displays[view->id]->setWindowTitle(QString("Display %1").arg(view->id+1));
-                Spice::getSpice()->displays[view->id]->show();
             }
         }
     }
