@@ -14,7 +14,8 @@ static void channel_new(SpiceSession *session, SpiceChannel *channel)
         if (Spice::getSpice()->displays.size() == 2) {
             foreach (SpiceView *view, Spice::getSpice()->displays) {
                 Spice::getSpice()->displays[view->id]->display = spice_display_new(session, view->id);
-                Spice::getSpice()->displays[view->id]->setWindowTitle(QString("Display %1").arg(view->id+1));
+                if (id == 0)
+                    Spice::getSpice()->displays[view->id]->setWindowTitle("Main Display");
             }
         }
     }
@@ -39,7 +40,11 @@ Spice *Spice::getSpice()
 
 void Spice::toggleDisplay(int id)
 {
-    qDebug() << id;
+    --id;
+    if (Spice::getSpice()->displays[id]->isVisible())
+        Spice::getSpice()->displays[id]->hide();
+    else
+        Spice::getSpice()->displays[id]->show();
 }
 
 void Spice::connectToGuest(const QString &path)
