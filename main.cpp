@@ -34,6 +34,10 @@ int main(int argc, char *argv[])
     Server server(&username);
     engine.rootContext()->setContextProperty("serverBackend", &server);
 
+    // Spice
+    Spice spice;
+    engine.rootContext()->setContextProperty("spiceBackend", &spice);
+
     // Startup
     Startup startup(&username);
     engine.rootContext()->setContextProperty("startupBackend", &startup);
