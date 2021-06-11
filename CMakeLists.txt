@@ -31,7 +31,7 @@ add_executable(ECO
 target_compile_definitions(ECO
   PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 target_link_libraries(ECO
-  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Xml Qt${QT_VERSION_MAJOR}::X11Extras virt pthread udev gobject-2.0 glib-2.0 spice-client-glib-2.0)
+  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Xml Qt${QT_VERSION_MAJOR}::X11Extras X11 virt pthread udev gobject-2.0 glib-2.0 spice-client-glib-2.0)
 target_include_directories(ECO PUBLIC
   /usr/include/gstreamer-1.0
   /usr/lib/x86_64-linux-gnu/glib-2.0/include

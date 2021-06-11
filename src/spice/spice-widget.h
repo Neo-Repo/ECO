@@ -1,6 +1,9 @@
 #ifndef SPICE_WIDGET_H
 #define SPICE_WIDGET_H
 
+#undef signals
+#include <glib.h>
+#include <glib-object.h>
 #include "spice-client.h"
 
 G_BEGIN_DECLS

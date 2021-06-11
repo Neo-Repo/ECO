@@ -1,9 +1,6 @@
 #ifndef SPICEVIEW_H
 #define SPICEVIEW_H
 
-#include <glib.h>
-#include <glib-object.h>
-#include "spice-client.h"
 #include "spice-util.h"
 #include "spice-widget.h"
 
