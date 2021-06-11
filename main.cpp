@@ -1,3 +1,4 @@
+#include "src/spice/spice.h"
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
