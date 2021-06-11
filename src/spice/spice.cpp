@@ -37,13 +37,11 @@ Spice *Spice::getSpice()
     return instance;
 }
 
-void Spice::connectToGuest(const QString &host, const QString &port)
+void Spice::connectToGuest(const QString &path)
 {
     session = spice_session_new();
-    g_object_set(session, "host", \
-                 host.toLatin1().constData(), NULL);
-    g_object_set(session, "port", \
-                 port.toLatin1().constData(), NULL);
+    g_object_set(session, "unix-path", \
+                 path.toLatin1().constData(), NULL);
     g_signal_connect(session, "channel-new",
                                  G_CALLBACK(channel_new), 0);
     spice_session_connect(session);

@@ -5,7 +5,7 @@ class Spice
 {
 public:
     static Spice *getSpice();
-    void connectToGuest(const QString &host, const QString &port);
+    void connectToGuest(const QString &path);
     quint32 getKeyboardLockModifiers();
     QVector<SpiceView *> displays;
 private:
