@@ -12,6 +12,7 @@ public:
     void connectToGuest(const QString &path);
     quint32 getKeyboardLockModifiers();
     QVector<SpiceView *> displays;
+    QString path;
 private:
     static Spice *instance;
     SpiceSession *session;

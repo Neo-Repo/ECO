@@ -66,8 +66,9 @@ void Spice::toggleDisplay(int id)
         Spice::getSpice()->displays[id]->show();
 }
 
-void Spice::connectToGuest(const QString &path)
+void Spice::connectToGuest(const QString &_path)
 {
+    path = _path;
     session = spice_session_new();
     g_object_set(session, "unix-path", \
                  path.toLatin1().constData(), NULL);
