@@ -20,21 +20,6 @@ static void spice_display_init(SpiceDisplay *display)
     memset(d, 0, sizeof(*d));
 }
 
-static void main_channel_event(SpiceChannel *channel, SpiceChannelEvent event, gpointer data)
-{
-    switch (event) {
-        case SPICE_CHANNEL_OPENED:
-            qDebug() << "main channel: connected";
-            break;
-        case SPICE_CHANNEL_CLOSED:
-            qDebug() << "main channel: connection lost";
-            break;
-        case SPICE_CHANNEL_ERROR_CONNECT:
-            qDebug() << "main channel: failed to connect";
-            break;
-    }
-}
-
 static void update_mouse_mode(SpiceChannel *channel, gpointer data)
 {
     SpiceDisplay *display = static_cast<SpiceDisplay*>(data);
@@ -135,8 +120,6 @@ static void channel_new(SpiceSession *session, SpiceChannel *channel, gpointer d
 
     if (SPICE_IS_MAIN_CHANNEL(channel)) {
         d->main = SPICE_MAIN_CHANNEL(channel);
-        g_signal_connect(channel, "channel-event",
-                          G_CALLBACK(main_channel_event), 0);
         g_signal_connect(channel, "main-mouse-update",
                                       G_CALLBACK(update_mouse_mode), display);
         update_mouse_mode(channel, display);

@@ -1,9 +1,28 @@
 #include "spice.h"
 
+static void main_channel_event(SpiceChannel *channel, SpiceChannelEvent event, gpointer data)
+{
+    switch (event) {
+        case SPICE_CHANNEL_OPENED:
+            qDebug() << "main channel: connected";
+            break;
+        case SPICE_CHANNEL_CLOSED:
+            qDebug() << "main channel: connection lost";
+            break;
+        case SPICE_CHANNEL_ERROR_CONNECT:
+            qDebug() << "main channel: failed to connect";
+            break;
+    }
+}
+
 static void channel_new(SpiceSession *session, SpiceChannel *channel)
 {
     int id;
     g_object_get(channel, "channel-id", &id, NULL);
+
+    if (SPICE_IS_MAIN_CHANNEL(channel))
+        g_signal_connect(channel, "channel-event", G_CALLBACK(main_channel_event), 0);
+
     if (SPICE_IS_DISPLAY_CHANNEL(channel)) {
         qDebug() << QString("display %1 created").arg(id+1);
         SpiceView *view = new SpiceView();
