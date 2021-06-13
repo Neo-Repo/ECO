@@ -10,6 +10,7 @@ public:
     static Spice *getSpice();
     Q_INVOKABLE void toggleDisplay(int id);
     void connectToGuest(const QString &path);
+    void Retry();
     quint32 getKeyboardLockModifiers();
     QVector<SpiceView *> displays;
     QString path;

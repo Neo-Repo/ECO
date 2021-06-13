@@ -8,6 +8,7 @@ static void main_channel_event(SpiceChannel *channel, SpiceChannelEvent event, g
             break;
         case SPICE_CHANNEL_CLOSED:
             qDebug() << "main channel: connection lost";
+            Spice::getSpice()->Retry();
             break;
         case SPICE_CHANNEL_ERROR_CONNECT:
             qDebug() << "main channel: failed to connect";
@@ -75,6 +76,16 @@ void Spice::connectToGuest(const QString &_path)
     g_signal_connect(session, "channel-new",
                                  G_CALLBACK(channel_new), 0);
     spice_session_connect(session);
+}
+
+void Spice::Retry()
+{
+    foreach (SpiceView *v, displays) {
+        v->hide();
+    }
+    displays[0]->inputs = NULL;
+    displays = {};
+    connectToGuest(path);
 }
 
 quint32 Spice::getKeyboardLockModifiers()
