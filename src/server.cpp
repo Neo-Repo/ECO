@@ -119,7 +119,7 @@ void Server::newConnection()
     //qDebug() << "New Connection " + socket->peerAddress().toString();
     socket->write("{\"op\":0, \"interval\":1000}");
     connect(socket, &QTcpSocket::readyRead, this, &Server::read);
-    setConnected(true);
+
     mClients.push_back(socket);
     // we start the timer and expect the client set interval again to avoid timeout
     heartBeatTimer->start(2000);
@@ -143,6 +143,7 @@ void Server::read()
                 if (!req) {
                     req = true;
                     socket->write("{\"op\":1}");
+                    setConnected(true);
                 }
                 break;
 
