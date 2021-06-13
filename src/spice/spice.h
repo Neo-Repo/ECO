@@ -13,7 +13,7 @@ public:
     quint32 getKeyboardLockModifiers();
     QVector<SpiceView *> displays;
     QString path;
-    bool connected = true;
+    bool connected = false;
 private:
     static Spice *instance;
     SpiceSession *session;
