@@ -10,7 +10,6 @@ static void main_channel_event(SpiceChannel *channel, SpiceChannelEvent event, g
         case SPICE_CHANNEL_CLOSED:
             Spice::getSpice()->setConnected(false);
             qDebug() << "main channel: connection lost";
-            Spice::getSpice()->connectToGuest();
             break;
         case SPICE_CHANNEL_ERROR_CONNECT:
             qDebug() << "main channel: failed to connect";
