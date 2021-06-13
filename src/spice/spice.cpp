@@ -60,6 +60,8 @@ Spice *Spice::getSpice()
 
 void Spice::toggleDisplay(int id)
 {
+    if (displays.length() == 0) return;
+
     --id;
     if (Spice::getSpice()->displays[id]->isVisible())
         Spice::getSpice()->displays[id]->hide();
