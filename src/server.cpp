@@ -157,6 +157,11 @@ void Server::read()
                     client->write(rawData);
                 }
                 break;
+
+            // code 3: window
+            case 3:
+                qDebug() << data;
+                break;
         }
         rawData = "";
     }
