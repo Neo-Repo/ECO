@@ -36,6 +36,10 @@ static void channel_new(SpiceSession *session, SpiceChannel *channel)
                 Spice::getSpice()->displays[view->id]->display = spice_display_new(session, view->id);
                 if (id == 0)
                     Spice::getSpice()->displays[view->id]->setWindowTitle("Main Display");
+
+                // There is a bug in resize, don't know why but this fix it
+                Spice::getSpice()->displays[view->id]->show();
+                Spice::getSpice()->displays[view->id]->hide();
             }
         }
     }
