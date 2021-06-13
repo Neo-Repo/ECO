@@ -12,6 +12,7 @@
 #include <QDebug>
 #include <QX11Info>
 #include <X11/XKBlib.h>
+#undef Bool
 
 class SpiceView : public QWidget
 {
