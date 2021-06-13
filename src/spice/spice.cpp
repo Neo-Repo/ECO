@@ -8,7 +8,7 @@ static void main_channel_event(SpiceChannel *channel, SpiceChannelEvent event, g
             break;
         case SPICE_CHANNEL_CLOSED:
             qDebug() << "main channel: connection lost";
-            Spice::getSpice()->Retry();
+            Spice::getSpice()->connectToGuest();
             break;
         case SPICE_CHANNEL_ERROR_CONNECT:
             qDebug() << "main channel: failed to connect";
@@ -31,7 +31,7 @@ static void channel_new(SpiceSession *session, SpiceChannel *channel)
         Spice::getSpice()->displays.append(view);
 
         // The value 2 should not be hard coded
-        if (Spice::getSpice()->displays.size() == 2) {
+        if (Spice::getSpice()->displays.size() == 3) {
             foreach (SpiceView *view, Spice::getSpice()->displays) {
                 Spice::getSpice()->displays[view->id]->display = spice_display_new(session, view->id);
                 if (id == 0)
@@ -65,7 +65,7 @@ Spice *Spice::getSpice()
 void Spice::toggleDisplay(int id)
 {
     if (displays.length() == 0) {
-        Retry();
+        connectToGuest();
         return;
     }
 
@@ -78,16 +78,6 @@ void Spice::toggleDisplay(int id)
 
 void Spice::connectToGuest()
 {
-    session = spice_session_new();
-    g_object_set(session, "unix-path", \
-                 path.toLatin1().constData(), NULL);
-    g_signal_connect(session, "channel-new",
-                                 G_CALLBACK(channel_new), 0);
-    spice_session_connect(session);
-}
-
-void Spice::Retry()
-{
     if (displays.length() != 0) {
         foreach (SpiceView *v, displays) {
             v->hide();
@@ -95,7 +85,13 @@ void Spice::Retry()
         displays[0]->inputs = NULL;
     }
     displays = {};
-    connectToGuest();
+
+    session = spice_session_new();
+    g_object_set(session, "unix-path", \
+                 path.toLatin1().constData(), NULL);
+    g_signal_connect(session, "channel-new",
+                                 G_CALLBACK(channel_new), 0);
+    spice_session_connect(session);
 }
 
 quint32 Spice::getKeyboardLockModifiers()

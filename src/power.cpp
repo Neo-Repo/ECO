@@ -19,7 +19,7 @@ void Power::newPowerStatus(virConnectPtr conn, virDomainPtr domain, int event, i
     switch (state) {
         case 1:
             obj->setStatus("running");
-            Spice::getSpice()->Retry();
+            Spice::getSpice()->connectToGuest();
             break;
         case 3:
         case 7:
