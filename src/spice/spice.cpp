@@ -64,7 +64,10 @@ Spice *Spice::getSpice()
 
 void Spice::toggleDisplay(int id)
 {
-    if (displays.length() == 0) return;
+    if (displays.length() == 0) {
+        Retry();
+        return;
+    }
 
     --id;
     if (Spice::getSpice()->displays[id]->isVisible())
@@ -86,10 +89,12 @@ void Spice::connectToGuest(const QString &_path)
 
 void Spice::Retry()
 {
-    foreach (SpiceView *v, displays) {
-        v->hide();
+    if (displays.length() != 0) {
+        foreach (SpiceView *v, displays) {
+            v->hide();
+        }
+        displays[0]->inputs = NULL;
     }
-    displays[0]->inputs = NULL;
     displays = {};
     connectToGuest(path);
 }

@@ -1,3 +1,4 @@
+#include "src/spice/spice.h"
 #include "power.h"
 
 Power::Power(QString *user, virConnectPtr _conn, virDomainPtr _domain, QObject *parent) : QObject(parent)
@@ -18,6 +19,7 @@ void Power::newPowerStatus(virConnectPtr conn, virDomainPtr domain, int event, i
     switch (state) {
         case 1:
             obj->setStatus("running");
+            Spice::getSpice()->Retry();
             break;
         case 3:
         case 7:
