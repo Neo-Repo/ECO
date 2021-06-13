@@ -47,11 +47,11 @@ static void channel_new(SpiceSession *session, SpiceChannel *channel)
 
 Spice *Spice::instance = NULL;
 
-Spice::Spice(const QString path)
+Spice::Spice(const QString _path)
 {
+    path = _path;
     session = NULL;
     instance = this;
-    connectToGuest(path);
 }
 
 Spice *Spice::getSpice()
@@ -76,9 +76,8 @@ void Spice::toggleDisplay(int id)
         Spice::getSpice()->displays[id]->show();
 }
 
-void Spice::connectToGuest(const QString &_path)
+void Spice::connectToGuest()
 {
-    path = _path;
     session = spice_session_new();
     g_object_set(session, "unix-path", \
                  path.toLatin1().constData(), NULL);
@@ -96,7 +95,7 @@ void Spice::Retry()
         displays[0]->inputs = NULL;
     }
     displays = {};
-    connectToGuest(path);
+    connectToGuest();
 }
 
 quint32 Spice::getKeyboardLockModifiers()
