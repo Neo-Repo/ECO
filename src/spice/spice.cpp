@@ -79,6 +79,8 @@ void Spice::toggleDisplay(int id)
 
 void Spice::connectToGuest()
 {
+    if (connected) return;
+
     if (displays.length() != 0) {
         foreach (SpiceView *v, displays) {
             v->hide();
