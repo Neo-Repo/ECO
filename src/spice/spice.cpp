@@ -4,9 +4,11 @@ static void main_channel_event(SpiceChannel *channel, SpiceChannelEvent event, g
 {
     switch (event) {
         case SPICE_CHANNEL_OPENED:
+            Spice::getSpice()->connected = true;
             qDebug() << "main channel: connected";
             break;
         case SPICE_CHANNEL_CLOSED:
+            Spice::getSpice()->connected = false;
             qDebug() << "main channel: connection lost";
             Spice::getSpice()->connectToGuest();
             break;

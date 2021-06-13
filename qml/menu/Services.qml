@@ -8,13 +8,13 @@ GridLayout {
             name: "Main Display",
             icon: "\uf108",
             type: "services",
-            active: true
+            active: serverBackend.connected
         },
         {
             name: "Windows List",
             icon: "\uf2fa",
             type: "services",
-            active: true
+            active: serverBackend.connected
         },
         {
             name: "Programs",
