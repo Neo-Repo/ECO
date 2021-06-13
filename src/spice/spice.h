@@ -1,10 +1,13 @@
 #include "spice-widget.h"
 #include "spice-view.h"
 #include <QObject>
+#define QT_NO_KEYWORDS
 
 class Spice : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(bool connected READ getConnected WRITE setConnected NOTIFY connectedChanged)
+
 public:
     Spice(const QString path);
     static Spice *getSpice();
@@ -13,8 +16,16 @@ public:
     quint32 getKeyboardLockModifiers();
     QVector<SpiceView *> displays;
     QString path;
-    bool connected = false;
+    bool getConnected() const;
+
+public Q_SLOTS:
+    void setConnected(const bool);
+
+Q_SIGNALS:
+    void connectedChanged();
+
 private:
     static Spice *instance;
     SpiceSession *session;
+    bool connected = false;
 };

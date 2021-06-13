@@ -4,11 +4,11 @@ static void main_channel_event(SpiceChannel *channel, SpiceChannelEvent event, g
 {
     switch (event) {
         case SPICE_CHANNEL_OPENED:
-            Spice::getSpice()->connected = true;
+            Spice::getSpice()->setConnected(true);
             qDebug() << "main channel: connected";
             break;
         case SPICE_CHANNEL_CLOSED:
-            Spice::getSpice()->connected = false;
+            Spice::getSpice()->setConnected(false);
             qDebug() << "main channel: connection lost";
             Spice::getSpice()->connectToGuest();
             break;
@@ -112,4 +112,15 @@ quint32 Spice::getKeyboardLockModifiers()
         modifiers |= SPICE_INPUTS_SCROLL_LOCK;
 
     return modifiers;
+}
+
+bool Spice::getConnected() const
+{
+    return connected;
+}
+
+void Spice::setConnected(const bool newStatus)
+{
+    connected = newStatus;
+    emit connectedChanged();
 }
